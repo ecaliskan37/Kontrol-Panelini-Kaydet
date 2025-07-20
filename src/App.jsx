@@ -16,7 +16,7 @@ export default function App() {
   })
 
   const [widgetConfig, setWidgetConfig] = useState(() => {
-    localStorage.removeItem('widget')
+    // localStorage.removeItem('widget')
     return DEFAULT_CONFIG
   })
   const [saveRequested, setSaveRequested] = useState(false)
