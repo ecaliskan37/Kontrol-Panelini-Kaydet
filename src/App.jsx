@@ -20,8 +20,6 @@ export default function App() {
   })
   const [saveRequested, setSaveRequested] = useState(false)
 
-  console.log(JSON.parse(localStorage.getItem('widget')))
-
   useEffect(() => {
     if (saveRequested) {
       localStorage.setItem('widget', JSON.stringify(widgetConfig))
