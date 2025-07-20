@@ -22,9 +22,14 @@ export default function App() {
 
   console.log(JSON.parse(localStorage.getItem('widget')))
 
+  useEffect(() => {
+    if (saveRequested) {
+      localStorage.setItem('widget', JSON.stringify(widgetConfig))
+    }
+  }, [saveRequested])
+
   function save() {
     setSaveRequested(true) // Aşağıdaki 126. satırda yeşil "Kaydedildi" mesajının oluşturulmasına neden olur. State daha sonra 70. satırdaki setTimeout tarafından tekrar false değerine ayarlanır ve mesaj kaldırılır.
-    localStorage.setItem('widget', JSON.stringify(widgetConfig))
   }
 
   /****** Kodunuzu yukarıya yazın*******************************************************************  
