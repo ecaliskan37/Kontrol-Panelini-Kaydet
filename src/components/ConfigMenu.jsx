@@ -5,7 +5,6 @@ export default function ConfigMenu(props) {
 
   function reset() {
     setWidgetConfig(DEFAULT_CONFIG)
-    // localStorage.removeItem('widget')
   }
 
   const ConfigButtons = widgetConfig.map((widget) => {

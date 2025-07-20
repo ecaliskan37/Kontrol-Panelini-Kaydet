@@ -16,14 +16,16 @@ export default function App() {
   })
 
   const [widgetConfig, setWidgetConfig] = useState(() => {
-    const x = JSON.parse(localStorage.getItem('widget'))
-    return x || DEFAULT_CONFIG
+    localStorage.removeItem('widget')
+    return DEFAULT_CONFIG
   })
   const [saveRequested, setSaveRequested] = useState(false)
 
   useEffect(() => {
     if (saveRequested) {
       localStorage.setItem('widget', JSON.stringify(widgetConfig))
+    } else {
+      setWidgetConfig(JSON.parse(localStorage.getItem('widget')))
     }
   }, [saveRequested])
 
