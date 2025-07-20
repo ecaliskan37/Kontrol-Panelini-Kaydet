@@ -15,9 +15,9 @@ export default function App() {
     return { ...widget, positionData: { ...widget.positionData } }
   })
 
-  const [widgetConfig, setWidgetConfig] = useState(
-    JSON.parse(localStorage.getItem('widget')) || DEFAULT_CONFIG
-  )
+  const [widgetConfig, setWidgetConfig] = useState(() => {
+    return JSON.parse(localStorage.getItem('widget')) || DEFAULT_CONFIG
+  })
   const [saveRequested, setSaveRequested] = useState(false)
 
   console.log(JSON.parse(localStorage.getItem('widget')))
