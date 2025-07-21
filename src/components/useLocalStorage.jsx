@@ -1,11 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const useLocalStorage = (key, defaultValue) => {
   // Create state variable to store
   // localStorage value in state
+
+  useEffect(() => {})
   const [localStorageValue, setLocalStorageValue] = useState(() => {
+    if (typeof window === 'undefined') {
+      return defaultValue
+    }
     try {
-      const value = localStorage.getItem(key)
+      const value = window.localStorage.getItem(key)
       // If value is already present in
       // localStorage then return it
 
@@ -14,11 +19,11 @@ const useLocalStorage = (key, defaultValue) => {
       if (value) {
         return JSON.parse(value)
       } else {
-        localStorage.setItem(key, JSON.stringify(defaultValue))
+        window.localStorage.setItem(key, JSON.stringify(defaultValue))
         return defaultValue
       }
     } catch (error) {
-      localStorage.setItem(key, JSON.stringify(defaultValue))
+      window.localStorage.setItem(key, JSON.stringify(defaultValue))
       return defaultValue
     }
   })
@@ -32,7 +37,7 @@ const useLocalStorage = (key, defaultValue) => {
     } else {
       newValue = valueOrFn
     }
-    localStorage.setItem(key, JSON.stringify(newValue))
+    window.localStorage.setItem(key, JSON.stringify(newValue))
     setLocalStorageValue(newValue)
   }
   return [localStorageValue, setLocalStorageStateValue]
