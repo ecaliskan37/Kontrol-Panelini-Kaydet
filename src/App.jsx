@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './styles.css'
+import useLocalStorage from './components/useLocalStorage'
 
 import blankConfig from './data/blankConfig'
 import Clock from './components/Clock'
@@ -9,23 +10,24 @@ import Stocks from './components/Stocks'
 import ToDo from './components/ToDo'
 import Weather from './components/Weather'
 import ConfigMenu from './components/ConfigMenu'
+import { defaultConfig } from 'next/dist/server/config-shared'
 
 export default function App() {
+  const [local, setLocal] = useLocalStorage('widget', [])
   const DEFAULT_CONFIG = blankConfig.map((widget) => {
     return { ...widget, positionData: { ...widget.positionData } }
   })
 
   const [widgetConfig, setWidgetConfig] = useState(() => {
-    // localStorage.removeItem('widget')
-    return DEFAULT_CONFIG
+    return local.length === 0 ? DEFAULT_CONFIG : local
   })
   const [saveRequested, setSaveRequested] = useState(false)
 
   useEffect(() => {
     if (saveRequested) {
-      localStorage.setItem('widget', JSON.stringify(widgetConfig))
+      setLocal(widgetConfig)
     } else {
-      setWidgetConfig(JSON.parse(localStorage.getItem('widget')))
+      // setWidgetConfig(local.length === 0 ? DEFAULT_CONFIG : local)
     }
   }, [saveRequested])
 

@@ -1,10 +1,13 @@
 import ConfigButton from './ConfigButton'
+import useLocalStorage from './useLocalStorage'
 
 export default function ConfigMenu(props) {
+  const [local, setLocal] = useLocalStorage('widget', [])
   const { widgetConfig, setWidgetConfig, DEFAULT_CONFIG } = props.stateProps
 
   function reset() {
     setWidgetConfig(DEFAULT_CONFIG)
+    setLocal([])
   }
 
   const ConfigButtons = widgetConfig.map((widget) => {
